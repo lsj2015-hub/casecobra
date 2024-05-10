@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Toaster } from '@/components/ui/toaster';
+
 import './globals.css';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
@@ -20,8 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        {children}
-        <Footer />
+        <main className="flex flex-col min-h-[calc(100vh-3.5rem-1px)]">
+          <div className="flex flex-1 flex-col h-full">{children}</div>
+          <Footer />
+        </main>
+        <Toaster />
       </body>
     </html>
   );
