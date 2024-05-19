@@ -1,10 +1,10 @@
 import { db } from '@/db';
 import { notFound } from 'next/navigation';
-import DesignConfigurator from './design-configurator';
+import DesignPreview from './design-preview';
 
 interface PageProps {
   searchParams: {
-    [key: string]: string | string[] | undefined;
+    [key: string]: string;
   };
 }
 
@@ -14,25 +14,16 @@ const Page = async ({ searchParams }: PageProps) => {
   if (!id || typeof id !== 'string') {
     return notFound();
   }
+
   const configuration = await db.configuration.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!configuration) {
     return notFound();
   }
 
-  const { imageUrl, width, height } = configuration;
-
-  return (
-    <DesignConfigurator
-      configId={id}
-      imageUrl={imageUrl}
-      imageDimensions={{ width, height }}
-    />
-  );
+  return <DesignPreview configuration={configuration} />;
 };
 
 export default Page;
