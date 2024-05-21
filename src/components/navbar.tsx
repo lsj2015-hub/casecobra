@@ -8,6 +8,7 @@ import { buttonVariants } from './ui/button';
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
   const isAdmin = user?.email === process.env.ADMIN_EMAIL;
 
   return (
@@ -29,7 +30,7 @@ const Navbar = async () => {
                 </Link>
                 {isAdmin ? (
                   <Link
-                    href="/api/auth/logout"
+                    href="/dashboard"
                     className={buttonVariants({ size: 'sm', variant: 'ghost' })}
                   >
                     Dashboard ✨
